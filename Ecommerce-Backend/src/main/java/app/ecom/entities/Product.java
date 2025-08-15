@@ -2,12 +2,14 @@ package app.ecom.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "products")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Global ignore for lazy proxies
 public class Product {
 
     @Id
@@ -21,19 +23,23 @@ public class Product {
     private String description;
 
     @Column(nullable = false)
-    private double price = 0.00;
+    private double price;
 
     @Column(nullable = false)
     private int stock = 0;
 
-    @ManyToOne
-    @JoinColumn(name = "seller_id", nullable = false)
-    private Seller seller;
+    @Column(name = "image_path")
+    private String imagePath; // Keep as String for now
 
-    @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
+    // Category relation
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "products"})
     private Categories category;
 
-    @Lob
-    private byte[] imagePath;
+    // Seller relation
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "seller_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "products"})
+    private Seller seller;
 }

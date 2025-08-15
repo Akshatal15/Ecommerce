@@ -31,11 +31,11 @@ public class UserController {
 //     * @param id The ID of the user to retrieve.
 //     * @return A ResponseEntity containing the UserResponseDTO.
 //     */
-//    @GetMapping("/{id}")
-//    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable int id) {
-//        UserResponseDTO user = userService.getUserById(id);
-//        return ResponseEntity.ok(user);
-//    }
+@GetMapping("/{id}")
+public ResponseEntity<UserResponseDTO> getUserById(@PathVariable int id) {
+        UserResponseDTO user = userService.getUserById(id);
+       return ResponseEntity.ok(user);
+   }
 //
 //    /**
 //     * Endpoint to retrieve all users.
@@ -43,8 +43,8 @@ public class UserController {
 //     * @return A ResponseEntity containing a list of all UserResponseDTOs.
 //     */
 //    @GetMapping
-//    public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
-//        List<UserResponseDTO> users = userService.getAllUsers();
-//        return ResponseEntity.ok(users);
-//    }
+  /*  public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
+       List<UserResponseDTO> users = userService.getAllUsers();
+       return ResponseEntity.ok(users);
+   }*/
 }

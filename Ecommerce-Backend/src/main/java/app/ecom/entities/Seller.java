@@ -1,5 +1,6 @@
 package app.ecom.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,6 +9,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Seller {
 
     @Id
@@ -16,6 +18,11 @@ public class Seller {
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false, unique = true)
+    @JsonIgnoreProperties({
+            "hibernateLazyInitializer",
+            "handler",
+            "role" // prevents lazy Role serialization chain
+    })
     private User user;
 
     @Column(length = 50, nullable = false)
